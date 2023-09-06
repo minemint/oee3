@@ -9,6 +9,7 @@ namespace WebApplication6.ViewModels
         public string OutputDate { get; set; }
         public string Tstart { get; set; }
         public string Tend { get; set; }
+        public string ToyName { get; set; }
         public string Shift { get; set; }
         public string MachineNo { get; set; }
         public int? OutputQTY { get; set; }

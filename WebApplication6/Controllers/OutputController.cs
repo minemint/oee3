@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using WebApplication6.Models;
@@ -18,10 +19,39 @@ namespace WebApplication6.Controllers
         }
 
         // GET: OutputController
-        public ActionResult Index()
-        {   
-            var outputs = _context.Outputs.Include(o => o.Defect).Include(o => o.Machine).Include(o => o.Time).Include(o => o.Toy) ;
+        public ActionResult Index(int page = 1)
+        {
+            int pagesize = ;
+            int bookscount = _context.Outputs.Count();
+            if (page < 1)
+            { 
+                page = 1;
+            }
+            var pager = new DataPager(bookscount, page, pagesize);
+            int skipRows = (page - 1) * pagesize;
+            ViewBag.Pager = pager;
+            var outputs = (from o in _context.Outputs
+                           join t in _context.Times on o.TimeId equals t.TimeId
+                           join m in _context.Machines on o.MachineId equals m.MachineId
+                           join d in _context.Defects on o.DefectId equals d.DefectId
+                           join ty in _context.Toys on o.ToyId equals ty.ToyId
+                           orderby o.MachineId descending
+                           select new OutputViewModel
+                           {
+                               OutputId = o.OutputId,
+                               OutputDate = o.OutputDate,
+                               Shift = t.Shift,
+                               Tstart = t.Tstart,
+                               Tend = t.Tend,
+                               MachineNo = m.MachineNo,
+                               DefectName = d.DefectName,
+                               OutputQTY = o.OutputQTY,
+                               Crate = o.Crate,
+                               DefectQty = o.DefectQty,
+                               ToyName = ty.ToyName
 
+                           }).Skip(skipRows).Take(pagesize).ToList();
+            //ViewBag.MachineId = new SelectList(_context.Machines, "MachineId", "MachineNo", outputs.MachineId);
             return View(outputs);
         }
 

@@ -1,9 +1,73 @@
-﻿@model IEnumerable<WebApplication6.Models.Outputs>
+﻿@model IEnumerable<WebApplication6.ViewModels.OutputViewModel>
 
 @{
     ViewData["Title"] = "Index";
+    int rows = 1;
+    int startcount = 0;
+    DataPager pager = new();
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        startcount = (pager.CurrentPage - 1) * pager.PageSize;
+    }
 }
+<button type="button" class="btn btn-primary">123</button>
+@if (pager.TotalPages > 0)
+{
+    <ul class="pagination justify-content-end">
+        @if (pager.CurrentPage > 1)
+        {
+            <li class="page-item">
+                <a class="page-link"
+                   asp-controller="Output"
+                   asp-route-page="1"
+                   asp-action="Index">
+                    หน้าแรก
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link"
+                   asp-controller="Output"
+                   asp-route-page="@(pager.CurrentPage-1)"
+                   asp-action="Index">
+                    ก่อนหน้า
+                </a>
+            </li>
+        }
 
+        @for (var i = pager.StartPage; i <= pager.EndPage; i++)
+        {
+            <li class="page-item @(i == pager.CurrentPage ? "active" : "")">
+                <a class="page-link"
+                   asp-controller="Output"
+                   asp-action="Index"
+                   asp-route-page="@i">
+                    @i
+                </a>
+            </li>
+        }
+
+        @if (pager.CurrentPage < pager.TotalPages)
+        {
+            <li class="page-item">
+                <a class="page-link"
+                   asp-controller="Output"
+                   asp-route-page="@(pager.CurrentPage+1)"
+                   asp-action="Index">
+                    ถัดไป
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link"
+                   asp-controller="Output"
+                   asp-route-page="@(pager.TotalPages)"
+                   asp-action="Index">
+                    หน้าสุดท้าย
+                </a>
+            </li>
+        }
+    </ul>
+}
 <table class="table">
     <thead>
         <tr>
@@ -14,19 +78,19 @@
                 @Html.DisplayNameFor(model => model.OutputDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Time.Shift)
+                @Html.DisplayNameFor(model => model.Shift)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Machine.MachineNo)
+                @Html.DisplayNameFor(model => model.Tstart)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Time.Tstart)
+                @Html.DisplayNameFor(model => model.Tend)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Time.Tend)
+                @Html.DisplayNameFor(model => model.MachineNo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Toy.ToyName)
+                @Html.DisplayNameFor(model => model.DefectName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.OutputQTY)
@@ -35,17 +99,17 @@
                 @Html.DisplayNameFor(model => model.Crate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Defect.DefectName)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.DefectQty)
             </th>
-            <th></th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.ToyName)
+            </th>
+
         </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.OutputId)
@@ -54,19 +118,19 @@
                     @Html.DisplayFor(modelItem => item.OutputDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Time.Shift)
+                    @Html.DisplayFor(modelItem => item.Shift)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Machine.MachineNo)
+                    @Html.DisplayFor(modelItem => item.Tstart)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Time.Tstart)
+                    @Html.DisplayFor(modelItem => item.Tend)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Time.Tend)
+                    @Html.DisplayFor(modelItem => item.MachineNo)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Toy.ToyName)
+                    @Html.DisplayFor(modelItem => item.DefectName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.OutputQTY)
@@ -75,33 +139,17 @@
                     @Html.DisplayFor(modelItem => item.Crate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Defect.DefectName)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.DefectQty)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.OutputId">Edit</a>
+                    @Html.DisplayFor(modelItem => item.ToyName)
                 </td>
                 <td>
-                    <a class="create-downtime-link" href="/Downtime/Create?outputId=@item.OutputId">Downtime</a>
+                    <a asp-action="Edit" asp-route-id="@item.OutputId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.OutputId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.OutputId">Delete</a>
                 </td>
             </tr>
-    }
+        }
     </tbody>
 </table>
-<script>
-    $
-    $(document).ready(function () {
-        const outputIdField = $("#OutputId");
-        $("form").submit(function (event) {
-            outputIdField.val(getMachineIdFromURL());
-        });
-        function getMachineIdFromURL() {
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-            return urlParams.get("outputId");
-        }
-    });
-    $(".table").addClass("compact nowrap w-100");
-</script>
