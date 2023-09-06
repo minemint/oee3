@@ -1,0 +1,72 @@
+﻿@model IEnumerable<WebApplication6.ViewModels.OutputViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<button type="button" class="btn btn-primary">123</button>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OutputDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tstart)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tend)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shift)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MachineNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DowntimeStart)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DowntimeEnd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DowntimeHour)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OutputDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tstart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tend)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Shift)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MachineNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DowntimeStart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DowntimeEnd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DowntimeHour)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.OutputId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.OutputId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.OutputId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

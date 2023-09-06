@@ -1,0 +1,58 @@
+﻿@model WebApplication6.Models.Outputs
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="OutputId" />
+            <div class="form-group">
+                <label asp-for="OutputDate" class="control-label"></label>
+                <input asp-for="OutputDate" class="form-control" />
+                <span asp-validation-for="OutputDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MachineId" class="control-label"></label>
+                <select asp-for="MachineId" class="form-control" asp-items="ViewBag.MachineId"></select>
+                <span asp-validation-for="MachineId" class="text-danger"></span>
+            </div>
+            <div class="form-group " hidden >
+                <label asp-for="TimeId" class="control-label"></label>
+                <select asp-for="TimeId" class="form-control  " asp-items="ViewBag.TimeId"></select>
+                <span asp-validation-for="TimeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ToyId" class="control-label"></label>
+                <select asp-for="ToyId" class="form-control" asp-items="ViewBag.ToyId"></select>
+                <span asp-validation-for="ToyId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OutputQTY" class="control-label"></label>
+                <input asp-for="OutputQTY" class="form-control" />
+                <span asp-validation-for="OutputQTY" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Crate" class="control-label"></label>
+                <input asp-for="Crate" class="form-control" />
+                <span asp-validation-for="Crate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DefectId" class="control-label"></label>
+                <select asp-for="DefectId" class="form-control" asp-items="ViewBag.DefectId"></select>
+                <span asp-validation-for="DefectId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DefectQty" class="control-label"></label>
+                <input asp-for="DefectQty" class="form-control" />
+                <span asp-validation-for="DefectQty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+

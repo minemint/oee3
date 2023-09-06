@@ -1,0 +1,79 @@
+﻿{
+   "CodeGenerationMode": 3,
+   "ContextClassName": "DBOEEContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Models",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "WebApplication6",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "T4TemplatePath": null,
+   "Tables": [
+      {
+         "Name": "[dbo].[Category]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DCode]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Defects]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Downtimes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Machines]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Outputs]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Shifts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Times]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Toys]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[GenerateOutput2]",
+         "ObjectType": 1
+      }
+   ],
+   "UiHint": "min.DBOEE.dbo",
+   "UncountableWords": null,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDateOnlyTimeOnly": false,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
+   "UseSpatial": false,
+   "UseT4": false
+}
