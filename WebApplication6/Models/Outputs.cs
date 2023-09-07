@@ -9,7 +9,7 @@ public partial class Outputs
 {
     public int OutputId { get; set; }
 
-    public string OutputDate { get; set; }
+    public DateTime OutputDate { get; set; }
 
     public int? MachineId { get; set; }
 

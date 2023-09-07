@@ -21,7 +21,7 @@ namespace WebApplication6.Controllers
         // GET: OutputController
         public ActionResult Index(int page = 1)
         {
-            int pagesize = ;
+            int pagesize = 24;
             int bookscount = _context.Outputs.Count();
             if (page < 1)
             { 
@@ -31,11 +31,15 @@ namespace WebApplication6.Controllers
             int skipRows = (page - 1) * pagesize;
             ViewBag.Pager = pager;
             var outputs = (from o in _context.Outputs
-                           join t in _context.Times on o.TimeId equals t.TimeId
-                           join m in _context.Machines on o.MachineId equals m.MachineId
-                           join d in _context.Defects on o.DefectId equals d.DefectId
-                           join ty in _context.Toys on o.ToyId equals ty.ToyId
-                           orderby o.MachineId descending
+                           join t in _context.Times on o.TimeId equals t.TimeId into timeGroup
+                           from t in timeGroup.DefaultIfEmpty()
+                           join m in _context.Machines on o.MachineId equals m.MachineId into machineGroup
+                           from m in machineGroup.DefaultIfEmpty()
+                           join d in _context.Defects on o.DefectId equals d.DefectId into defectGroup
+                           from d in defectGroup.DefaultIfEmpty()
+                           join ty in _context.Toys on o.ToyId equals ty.ToyId into toyGroup
+                           from ty in toyGroup.DefaultIfEmpty()
+                           orderby o.MachineId ascending
                            select new OutputViewModel
                            {
                                OutputId = o.OutputId,

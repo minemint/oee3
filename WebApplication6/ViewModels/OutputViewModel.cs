@@ -6,7 +6,7 @@ namespace WebApplication6.ViewModels
     {
         [Key]
         public int OutputId { get; set; }
-        public string OutputDate { get; set; }
+        public DateTime OutputDate { get; set; }
         public string Tstart { get; set; }
         public string Tend { get; set; }
         public string ToyName { get; set; }
