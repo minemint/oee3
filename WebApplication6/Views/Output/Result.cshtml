@@ -1,0 +1,109 @@
+﻿@model IEnumerable<WebApplication6.ViewModels.OutputViewModel>
+
+@{
+    ViewData["Title"] = "Result";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OutputId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OutputDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shift)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tstart)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tend)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MachineNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ToyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OutputQTY)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Crate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DefectName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DefectQty)
+            </th>
+
+            <th>Edit</th>
+            <th>Add Downtime</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OutputId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OutputDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Shift)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tstart)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tend)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MachineNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ToyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OutputQTY)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Crate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DefectName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DefectQty)
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.OutputId"><i class="fa-regular fa-pen-to-square fa-xl"></i></a>
+                </td>
+                <td>
+                    <a asp-controller="Downtime" asp-action="Create" asp-route-outputId="@item.OutputId"><i class="fa fa-plus fa-xl"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+        const outputIdField = $("#OutputId");
+        $("form").submit(function (event) {
+            outputIdField.val(getMachineIdFromURL());
+        });
+        function getMachineIdFromURL() {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            return urlParams.get("outputId");
+        }
+    });
+    $(".table").addClass("compact nowrap w-100");
+</script>
