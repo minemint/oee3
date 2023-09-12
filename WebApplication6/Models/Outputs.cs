@@ -2,6 +2,7 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication6.Models;
 
@@ -9,8 +10,8 @@ public partial class Outputs
 {
     public int OutputId { get; set; }
 
+    [DataType(DataType.Date)]
     public DateTime OutputDate { get; set; }
-
     public int? MachineId { get; set; }
 
     public int? TimeId { get; set; }

@@ -3,54 +3,46 @@
 @{
     ViewData["Title"] = "Index";
 }
-<button type="button" class="btn btn-primary">123</button>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.OutputDate)
+                Id
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Tstart)
+                MachineNo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Tend)
+                DowntimeDate
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Shift)
+                DowntimeStart
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MachineNo)
+                DowntimeEnd
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DowntimeStart)
+                DowntimeHour
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DowntimeEnd)
+                Code
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DowntimeHour)
+                CodeName
             </th>
-
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+            <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DownTimeId)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.MachineNo)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.OutputDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tstart)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tend)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Shift)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MachineNo)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DowntimeStart)
@@ -60,6 +52,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DowntimeHour)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DcodeId)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.DcodeName)
             </td>
             <td>
                 @* <a asp-action="Edit" asp-route-id="@item.OutputId">Edit</a> |

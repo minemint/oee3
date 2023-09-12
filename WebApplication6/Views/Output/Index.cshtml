@@ -11,63 +11,71 @@
         startcount = (pager.CurrentPage - 1) * pager.PageSize;
     }
 }
-<button type="button" class="btn btn-primary">123</button>
-@if (pager.TotalPages > 0)
-{
-    <ul class="pagination justify-content-end">
-        @if (pager.CurrentPage > 1)
-        {
-            <li class="page-item">
-                <a class="page-link"
-                   asp-controller="Output"
-                   asp-route-page="1"
-                   asp-action="Index">
-                    หน้าแรก
-                </a>
-            </li>
-            <li class="page-item">
-                <a class="page-link"
-                   asp-controller="Output"
-                   asp-route-page="@(pager.CurrentPage-1)"
-                   asp-action="Index">
-                    ก่อนหน้า
-                </a>
-            </li>
-        }
+<div class="container-fluid">
 
-        @for (var i = pager.StartPage; i <= pager.EndPage; i++)
-        {
-            <li class="page-item @(i == pager.CurrentPage ? "active" : "")">
-                <a class="page-link"
-                   asp-controller="Output"
-                   asp-action="Index"
-                   asp-route-page="@i">
-                    @i
-                </a>
+    @if (pager.TotalPages > 0)
+    {
+        <ul class="pagination justify-content-end">
+            <li class="me-auto">
+                <a class="btn btn-primary " asp-controller="GenOutput" asp-action="GenData">GEN DATA</a>
             </li>
-        }
 
-        @if (pager.CurrentPage < pager.TotalPages)
-        {
-            <li class="page-item">
-                <a class="page-link"
-                   asp-controller="Output"
-                   asp-route-page="@(pager.CurrentPage+1)"
-                   asp-action="Index">
-                    ถัดไป
-                </a>
-            </li>
-            <li class="page-item">
-                <a class="page-link"
-                   asp-controller="Output"
-                   asp-route-page="@(pager.TotalPages)"
-                   asp-action="Index">
-                    หน้าสุดท้าย
-                </a>
-            </li>
-        }
-    </ul>
-}
+            @if (pager.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link"
+                       asp-controller="Output"
+                       asp-route-page="1"
+                       asp-action="Index">
+                        หน้าแรก
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link"
+                       asp-controller="Output"
+                       asp-route-page="@(pager.CurrentPage-1)"
+                       asp-action="Index">
+                        ก่อนหน้า
+                    </a>
+                </li>
+            }
+
+            @for (var i = pager.StartPage; i <= pager.EndPage; i++)
+            {
+                <li class="page-item @(i == pager.CurrentPage ? "active" : "")">
+                    <a class="page-link"
+                       asp-controller="Output"
+                       asp-action="Index"
+                       asp-route-page="@i">
+                        @i
+                    </a>
+                </li>
+            }
+
+            @if (pager.CurrentPage < pager.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link"
+                       asp-controller="Output"
+                       asp-route-page="@(pager.CurrentPage+1)"
+                       asp-action="Index">
+                        ถัดไป
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link"
+                       asp-controller="Output"
+                       asp-route-page="@(pager.TotalPages)"
+                       asp-action="Index">
+                        หน้าสุดท้าย
+                    </a>
+                </li>
+            }
+        </ul>
+    }
+</div>
+
+
 <table class="table">
     <thead>
         <tr>
@@ -90,7 +98,7 @@
                 @Html.DisplayNameFor(model => model.MachineNo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DefectName)
+                @Html.DisplayNameFor(model => model.ToyName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.OutputQTY)
@@ -99,12 +107,14 @@
                 @Html.DisplayNameFor(model => model.Crate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DefectQty)
+                @Html.DisplayNameFor(model => model.DefectName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ToyName)
+                @Html.DisplayNameFor(model => model.DefectQty)
             </th>
 
+            <th>Edit</th>
+            <th>Add Downtime</th>
         </tr>
     </thead>
     <tbody>
@@ -130,7 +140,7 @@
                     @Html.DisplayFor(modelItem => item.MachineNo)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DefectName)
+                    @Html.DisplayFor(modelItem => item.ToyName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.OutputQTY)
@@ -139,17 +149,86 @@
                     @Html.DisplayFor(modelItem => item.Crate)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.DefectName)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.DefectQty)
                 </td>
+
                 <td>
-                    @Html.DisplayFor(modelItem => item.ToyName)
+                    <a asp-action="Edit" asp-route-id="@item.OutputId"><i class="fa-regular fa-pen-to-square fa-xl"></i></a>
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.OutputId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.OutputId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.OutputId">Delete</a>
+                    <a asp-controller="Downtime" asp-action="Create" asp-route-outputId="@item.OutputId"><i class="fa fa-plus fa-xl"></i></a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<!--modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label class ="control-label">DowntimeStart</label>
+                                <input class="form-control" />
+                                <span  class="text-danger"></span>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">DowntimeEnd</label>
+                                <input class="form-control" />
+                                <span  class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">DowntimeHour</label>
+                                <input class="form-control" />
+                                <span  class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">OutputId</label>
+                                <select class="form-control" asp-items="ViewBag.OutputId"></select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">DcodeId</label>
+                                <select class="form-control" asp-items="ViewBag.DcodeId"></select>
+                            </div>
+@*                             <div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div> *@
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        const outputIdField = $("#OutputId");
+        $("form").submit(function (event) {
+            outputIdField.val(getMachineIdFromURL());
+        });
+        function getMachineIdFromURL() {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            return urlParams.get("outputId");
+        }
+    });
+    $(".table").addClass("compact nowrap w-100");
+</script>

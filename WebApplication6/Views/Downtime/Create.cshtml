@@ -3,38 +3,44 @@
 @{
     ViewData["Title"] = "Create";
 }
-
+<div class="container-fluid"></div>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group  mb-2">
                 <label asp-for="DowntimeStart" class="control-label"></label>
-                <input asp-for="DowntimeStart" class="form-control" />
+                <input asp-for="DowntimeStart" class="form-control" type="time" />
                 <span asp-validation-for="DowntimeStart" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group  mb-2">
                 <label asp-for="DowntimeEnd" class="control-label"></label>
-                <input asp-for="DowntimeEnd" class="form-control" />
+                <input asp-for="DowntimeEnd" class="form-control" type="time" />
                 <span asp-validation-for="DowntimeEnd" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group  mb-2">
                 <label asp-for="DowntimeHour" class="control-label"></label>
-                <input asp-for="DowntimeHour" class="form-control" />
+                <input asp-for="DowntimeHour" class="form-control" type="time" />
                 <span asp-validation-for="DowntimeHour" class="text-danger"></span>
             </div>
-            <div class="form-group" hidden >
+            <div class="form-group  mb-2">
                 <label asp-for="OutputId" class="control-label"></label>
-                <select asp-for="OutputId" class ="form-control" asp-items="ViewBag.OutputId"></select>
+                <select asp-for="OutputId" class="form-control" asp-items="ViewBag.OutputId"></select>
             </div>
-            <div class="form-group">
+            <div class="form-group  mb-2">
                 <label asp-for="DcodeId" class="control-label"></label>
                 <select asp-for="DcodeId" class ="form-control" asp-items="ViewBag.DcodeId"></select>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
+<script>
+    $('#time').datepicker({
+        uiLibrary: 'bootstrap5'
+    });
+</script>
+
 

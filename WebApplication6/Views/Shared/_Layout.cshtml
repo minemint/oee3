@@ -4,36 +4,73 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>@ViewData["Title"] - WebApplication6</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     </head>
     <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <span class="navbar-brand font-weight-light">Mattel MBK</span>
+            <span class="navbar-brand font-weight-light">OEE</span>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarScroll">
                 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Machine</a>
+                        <a class="nav-link active" aria-current="page" asp-controller="Machine" asp-action="Index">Machine</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Output</a>
+                        <a class="nav-link active" aria-current="page" asp-controller="Output" asp-action="Index">Output</a>
+
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Downtime</a>
+                        <a class="nav-link active" aria-current="page" asp-controller="Downtime" asp-action="Index">Downtime</a>
+
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <input type="date" name="searchByDate" value="@ViewBag.SearchByDate" class="form-control me-2" placeholder="เลือกวันที่">
-                    <input type="date" name="searchByDate" value="@ViewBag.SearchByDate" class="form-control me-2" placeholder="เลือกวันที่">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                <form asp-action="Result" method="get"  class="d-flex">
+                    <input class="form-control me-2" type= "date" name="SearchByDate" value="@ViewBag.SearchByDate" >
+                    <input class="form-control me-2" name="searchByMachine" value="@ViewBag.searchByMachine" type="text" placeholder="Search">
+                    <input class="btn btn-outline-success" type="submit" value="Search" />
                 </form>
+                
+                @* <!--machine search-->
+                @using (Html.BeginForm("Result", "Output", FormMethod.Get))
+                {
+                    <div class="input-group">
+                        <input class="form-control me-2" type="date" name="SearchByDate" value="@ViewBag.SearchByDate">
+                        <input class="form-control me-2" name="searchByMachine" value="@ViewBag.searchByMachine" type="text" placeholder="Search">
+                        <input class="btn btn-outline-success" type="submit" value="Search" />
+                    </div>
+                }
+                <!--output search-->
+                @using (Html.BeginForm("Result", "Output", FormMethod.Get))
+                {
+                    <div class="input-group">
+                        <input class="form-control me-2" type="date" name="SearchByDate" value="@ViewBag.SearchByDate">
+                        <input class="form-control me-2" name="searchByMachine" value="@ViewBag.searchByMachine" type="text" placeholder="Search">
+                        <input class="btn btn-outline-success" type="submit" value="Search" />
+                    </div>
+                }
+                <!--downtime search-->
+                @using (Html.BeginForm("Result", "Output", FormMethod.Get))
+                {
+                    <div class="input-group">
+                        <input class="form-control me-2" type="date" name="SearchByDate" value="@ViewBag.SearchByDate">
+                        <input class="form-control me-2" name="searchByMachine" value="@ViewBag.searchByMachine" type="text" placeholder="Search">
+                        <input class="btn btn-outline-success" type="submit" value="Search" />
+                    </div>
+                } *@
             </div>
         </div>
     </nav>
+        @if (TempData["AlertMessage"] != null)
+        {
+        <div class="alert alert-success m-0" role="alert">
+            @TempData["AlertMessage"]
+        </div>
+
+        }
         <div class="container-fluid">
         <div class="card">
             <div class="card-body">
